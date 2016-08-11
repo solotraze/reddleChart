@@ -82,10 +82,10 @@ var dataTemplate = {
   }]
 };
 
-var reddleChart = function (_dataName, _valueLabel, _ctx, _width, _height, responsive, minutesWindow) {
+var reddleChart = function (_dataName, _valueLabel, _ctx, responsive, minutesWindow) {
   this.ctx = _ctx;
-  this.width = _width;
-  this.height = _height;
+  this.width = this.ctx.width;
+  this.height = this.ctx.height;
   
   this.chartData = (JSON.parse(JSON.stringify(dataTemplate)));
   this.chartOptions = (JSON.parse(JSON.stringify(optionsLine)));
