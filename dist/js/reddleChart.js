@@ -28,6 +28,7 @@ var valuesDummy = [
 var optionsLine =  {
   responsive: true,
   maintainAspectRatio: false,
+  animation: false,
   scales: {
     xAxes: [{
       type: "time",
@@ -106,7 +107,7 @@ reddleChart.prototype.load = function(_chartValues) {
 };
 
 reddleChart.prototype.clear = function() {
-  this.loadData([]]);
+  this.loadData([]);
 };
 
 reddleChart.prototype.update = function(_val, _time) {
