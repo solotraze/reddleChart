@@ -8,7 +8,7 @@ var borderColor = [
                     'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'
                 ];
 */
-
+/*
 var valuesDummy = [
                   {x:moment().add(-280, 's').format(),y:193},
                    {x:moment().add(-240, 's').format(),y:382},
@@ -23,7 +23,7 @@ var valuesDummy = [
                    {x:moment().add(-1, 's').format(),y:330},
                    //{x:moment('2016-08-10T02:10:45.000Z').format(),y:193},
                   ];
-
+*/
 
 var optionsLine =  {
   responsive: true,
@@ -100,9 +100,13 @@ var reddleChart = function (_dataName, _valueLabel, _ctx, responsive, minutesWin
   this.minutesWindow = (minutesWindow != undefined) ? (-1 * minutesWindow) : -5;
 };
 
-reddleChart.prototype.load = function() {
-  this.chartValues = [];
+reddleChart.prototype.load = function(_chartValues) {
+  this.chartValues = (_chartValues != undefined) ? _chartValues : [];
   this.loadData(this.chartValues);
+};
+
+reddleChart.prototype.clear = function() {
+  this.loadData([]]);
 };
 
 reddleChart.prototype.update = function(_val, _time) {
@@ -114,6 +118,7 @@ reddleChart.prototype.update = function(_val, _time) {
   this.loadData(this.chartValues);
 };
 
+/* Only concerned about the chart object */
 reddleChart.prototype.loadData = function(values) {
   // If fixed size canvas is needed, resize it everytime to prevent distortion from ChartJS (http://stackoverflow.com/questions/19847582/chart-js-canvas-resize)
   this.ctx.width = this.width;
