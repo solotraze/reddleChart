@@ -72,11 +72,11 @@ var dataTemplate = {
     borderJoinStyle: 'miter',
     pointBorderColor: "rgba(75,192,192,1)",//"rgba(180,63,63,1)"
     pointBackgroundColor: "#fff",
-    pointBorderWidth: 4,
-    pointHoverRadius: 5,
+    pointBorderWidth: 1,
+    pointHoverRadius: 3,
     pointHoverBackgroundColor: "rgba(75,192,192,1)",
     pointHoverBorderColor: "rgba(220,220,220,1)",
-    pointHoverBorderWidth: 2,
+    pointHoverBorderWidth: 3,
     pointRadius: 1,
     pointHitRadius: 10,
     spanGaps: false,
@@ -98,7 +98,7 @@ var reddleChart = function (_dataName, _valueLabel, _ctx, responsive, minutesWin
     this.chartOptions.responsive = responsive;
     this.chartOptions.maintainAspectRatio = !responsive;
   }
-  this.minutesWindow = (minutesWindow != undefined) ? (-1 * minutesWindow) : -5;
+  this.minutesWindow = (minutesWindow != undefined) ? (-1 * Math.abs(minutesWindow)) : -5;
 };
 
 reddleChart.prototype.load = function(_chartValues) {
@@ -125,8 +125,9 @@ reddleChart.prototype.loadData = function(values) {
   this.ctx.width = this.width;
   this.ctx.height = this.height;
 
-  this.chartOptions.scales.xAxes[0].time.min = moment().add(this.minutesWindow, 'm').format();
-  this.chartOptions.scales.xAxes[0].time.max = moment().add(1, 'm').format();
+  var startMoment = (moment().startOf('minute')).add(this.minutesWindow, 'm');
+  this.chartOptions.scales.xAxes[0].time.min = startMoment.format();
+  this.chartOptions.scales.xAxes[0].time.max = startMoment.add(Math.abs(this.minutesWindow)+2, 'm').format();
   
   if (values != undefined) {
     this.chartData.datasets[0].data = values;
